@@ -1,0 +1,149 @@
+import InputLabel from '@/Components/InputLabel';
+import TextInput from '@/Components/TextInput';
+import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
+import { Head, router, usePage } from '@inertiajs/react';
+
+const statusStyles = {
+    active: 'bg-emerald-100 text-emerald-700 ring-emerald-200',
+    suspended: 'bg-rose-100 text-rose-700 ring-rose-200',
+};
+
+const statusLabels = {
+    active: 'Actif',
+    suspended: 'Suspendu',
+};
+
+function formatDate(value) {
+    return new Intl.DateTimeFormat('fr-DZ', {
+        day: '2-digit',
+        month: 'short',
+        year: 'numeric',
+    }).format(new Date(value));
+}
+
+export default function Index({ tenants, stats, filters }) {
+    const { flash } = usePage().props;
+
+    const handleSearch = (value) => {
+        router.get(
+            route('central.admin.tenants.index'),
+            { search: value },
+            {
+                preserveState: true,
+                replace: true,
+            },
+        );
+    };
+
+    return (
+        <AuthenticatedLayout
+            header={
+                <div className="flex flex-col gap-2">
+                    <p className="text-sm uppercase tracking-[0.24em] text-amber-700">
+                        Administration SaaS
+                    </p>
+                    <h2 className="text-2xl font-semibold leading-tight text-stone-900">
+                        Gestion des locataires
+                    </h2>
+                </div>
+            }
+        >
+            <Head title="Administration SaaS" />
+
+            <div className="py-10">
+                <div className="mx-auto max-w-7xl space-y-8 px-4 sm:px-6 lg:px-8">
+                    {flash?.success && (
+                        <div className="rounded-2xl bg-emerald-100 px-4 py-3 text-sm text-emerald-800 ring-1 ring-emerald-200">
+                            {flash.success}
+                        </div>
+                    )}
+
+                    <section className="grid gap-4 md:grid-cols-3">
+                        <article className="rounded-3xl bg-white p-6 shadow-sm ring-1 ring-stone-200">
+                            <p className="text-sm text-stone-500">Total des locataires</p>
+                            <p className="mt-4 text-4xl font-semibold text-stone-950">{stats.totalTenants}</p>
+                        </article>
+                        <article className="rounded-3xl bg-white p-6 shadow-sm ring-1 ring-stone-200">
+                            <p className="text-sm text-stone-500">Locataires actifs</p>
+                            <p className="mt-4 text-4xl font-semibold text-emerald-700">{stats.activeTenants}</p>
+                        </article>
+                        <article className="rounded-3xl bg-white p-6 shadow-sm ring-1 ring-stone-200">
+                            <p className="text-sm text-stone-500">Locataires suspendus</p>
+                            <p className="mt-4 text-4xl font-semibold text-rose-700">{stats.suspendedTenants}</p>
+                        </article>
+                    </section>
+
+                    <section className="rounded-3xl bg-white p-6 shadow-sm ring-1 ring-stone-200">
+                        <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+                            <div>
+                                <h3 className="text-xl font-semibold text-stone-950">
+                                    Liste des locataires
+                                </h3>
+                                <p className="mt-2 text-sm text-stone-500">
+                                    Recherchez et suspendez un espace client depuis la console centrale.
+                                </p>
+                            </div>
+
+                            <div className="w-full sm:max-w-xs">
+                                <InputLabel htmlFor="search" value="Recherche" />
+                                <TextInput
+                                    id="search"
+                                    value={filters.search}
+                                    className="mt-1 block w-full"
+                                    placeholder="Nom ou domaine"
+                                    onChange={(event) => handleSearch(event.target.value)}
+                                />
+                            </div>
+                        </div>
+
+                        <div className="mt-6 overflow-x-auto">
+                            <table className="min-w-full divide-y divide-stone-200">
+                                <thead className="bg-stone-50">
+                                    <tr className="text-left text-xs uppercase tracking-[0.18em] text-stone-500">
+                                        <th className="px-4 py-3">Salle</th>
+                                        <th className="px-4 py-3">Domaine</th>
+                                        <th className="px-4 py-3">Plan</th>
+                                        <th className="px-4 py-3">Statut</th>
+                                        <th className="px-4 py-3">Creation</th>
+                                        <th className="px-4 py-3">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody className="divide-y divide-stone-100 bg-white">
+                                    {tenants.map((tenant) => (
+                                        <tr key={tenant.id} className="text-sm text-stone-700">
+                                            <td className="px-4 py-4">
+                                                <div className="font-medium text-stone-900">{tenant.name}</div>
+                                                <div className="text-xs text-stone-500">{tenant.owner?.email ?? 'Sans responsable'}</div>
+                                            </td>
+                                            <td className="px-4 py-4">{tenant.domain}</td>
+                                            <td className="px-4 py-4 capitalize">{tenant.plan}</td>
+                                            <td className="px-4 py-4">
+                                                <span
+                                                    className={`inline-flex rounded-full px-3 py-1 text-xs font-semibold ring-1 ${statusStyles[tenant.status] ?? 'bg-stone-100 text-stone-700 ring-stone-200'}`}
+                                                >
+                                                    {statusLabels[tenant.status] ?? tenant.status}
+                                                </span>
+                                            </td>
+                                            <td className="px-4 py-4">{formatDate(tenant.created_at)}</td>
+                                            <td className="px-4 py-4">
+                                                <button
+                                                    type="button"
+                                                    onClick={() =>
+                                                        router.patch(route('central.admin.tenants.toggle-status', tenant.id))
+                                                    }
+                                                    className="rounded-full border border-stone-300 px-3 py-1.5 text-xs font-medium text-stone-700 transition hover:bg-stone-100"
+                                                >
+                                                    {tenant.status === 'active' ? 'Suspendre' : 'Activer'}
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </AuthenticatedLayout>
+    );
+}
