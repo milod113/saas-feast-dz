@@ -7,6 +7,7 @@ use App\Http\Controllers\Tenant\CalendarController;
 use App\Http\Controllers\Tenant\ClientController;
 use App\Http\Controllers\Tenant\DashboardController;
 use App\Http\Controllers\Tenant\PaymentController;
+use App\Http\Controllers\Tenant\PublicHallController;
 use App\Http\Controllers\Tenant\ReservationController;
 use Illuminate\Support\Facades\Route;
 use Stancl\Tenancy\Middleware\InitializeTenancyByDomain;
@@ -29,9 +30,9 @@ Route::middleware([
     InitializeTenancyByDomain::class,
     PreventAccessFromCentralDomains::class,
 ])->group(function () {
-    Route::get('/', function () {
-        return redirect()->route('tenant.dashboard');
-    });
+    Route::get('/', [PublicHallController::class, 'show'])->name('public.hall.show');
+    Route::get('/reserver', [PublicHallController::class, 'show'])->name('public.hall.booking');
+    Route::post('/reserver', [PublicHallController::class, 'store'])->name('public.hall.booking.store');
 
     Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('tenant.dashboard');
