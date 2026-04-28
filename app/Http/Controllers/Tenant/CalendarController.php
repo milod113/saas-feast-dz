@@ -21,7 +21,7 @@ class CalendarController extends Controller
         $end = $month->copy()->endOfMonth()->endOfWeek(Carbon::FRIDAY);
 
         $reservations = Reservation::query()
-            ->with('client:id,name')
+            ->with(['client:id,name', 'payments:id,reservation_id,amount'])
             ->whereBetween('event_date', [$start->toDateString(), $end->toDateString()])
             ->orderBy('event_date')
             ->get([
@@ -51,8 +51,9 @@ class CalendarController extends Controller
                     'client_name' => $reservation->client_name,
                     'status' => $reservation->status,
                     'total_price' => (float) $reservation->total_price,
-                    'advance_amount' => (float) $reservation->advance_amount,
+                    'paid_amount' => (float) $reservation->paid_amount,
                     'remaining_balance' => (float) $reservation->remaining_balance,
+                    'payment_status' => $reservation->payment_status,
                 ])->values(),
             ];
 

@@ -7,7 +7,9 @@ export default function Create({ clients, statuses }) {
         event_date: '',
         status: 'pending',
         total_price: '',
-        advance_amount: '0',
+        initial_payment_amount: '0',
+        initial_payment_date: '',
+        initial_payment_method: 'cash',
     });
 
     return (
@@ -18,6 +20,7 @@ export default function Create({ clients, statuses }) {
             submit={() => form.post(route('tenant.reservations.store'))}
             clients={clients}
             statuses={statuses}
+            mode="create"
         />
     );
 }

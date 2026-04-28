@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Tenant;
 
 use App\Http\Controllers\Controller;
+use App\Models\Payment;
 use App\Models\Reservation;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -17,7 +18,13 @@ class DashboardController extends Controller
             ->where('status', 'confirmed')
             ->sum('total_price');
 
+        $totalCollected = (float) Payment::sum('amount');
+        $outstandingBalance = Reservation::with('payments:id,reservation_id,amount')
+            ->get()
+            ->sum(fn (Reservation $reservation) => $reservation->remaining_balance);
+
         $recentReservations = Reservation::query()
+            ->with('payments:id,reservation_id,amount')
             ->latest()
             ->limit(5)
             ->get([
@@ -39,6 +46,8 @@ class DashboardController extends Controller
             'stats' => [
                 'totalReservations' => $totalReservations,
                 'totalRevenue' => (float) $totalRevenue,
+                'totalCollected' => $totalCollected,
+                'outstandingBalance' => (float) $outstandingBalance,
             ],
             'recentReservations' => $recentReservations,
         ]);

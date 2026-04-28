@@ -1,3 +1,4 @@
+import ThemeToggle from '@/Components/ThemeToggle';
 import { Head, Link } from '@inertiajs/react';
 
 const features = [
@@ -40,10 +41,10 @@ export default function Welcome({ canLogin, canRegister }) {
         <>
             <Head title="Accueil" />
 
-            <div className="min-h-screen bg-[#fffaf5] text-stone-900">
+            <div className="min-h-screen bg-[#fffaf5] text-stone-900 dark:bg-stone-950 dark:text-stone-100">
                 <div className="relative isolate overflow-hidden">
-                    <div className="absolute inset-x-0 top-0 -z-10 h-[32rem] bg-[radial-gradient(circle_at_top,_rgba(251,146,60,0.22),_transparent_55%),radial-gradient(circle_at_20%_20%,_rgba(245,158,11,0.16),_transparent_30%),linear-gradient(180deg,_#fff7ed_0%,_#fffaf5_65%,_#fffaf5_100%)]" />
-                    <div className="absolute left-1/2 top-20 -z-10 h-72 w-72 -translate-x-1/2 rounded-full bg-amber-300/20 blur-3xl" />
+                    <div className="absolute inset-x-0 top-0 -z-10 h-[32rem] bg-[radial-gradient(circle_at_top,_rgba(251,146,60,0.22),_transparent_55%),radial-gradient(circle_at_20%_20%,_rgba(245,158,11,0.16),_transparent_30%),linear-gradient(180deg,_#fff7ed_0%,_#fffaf5_65%,_#fffaf5_100%)] dark:bg-[radial-gradient(circle_at_top,_rgba(251,146,60,0.16),_transparent_55%),radial-gradient(circle_at_20%_20%,_rgba(245,158,11,0.12),_transparent_30%),linear-gradient(180deg,_#1c1917_0%,_#09090b_65%,_#09090b_100%)]" />
+                    <div className="absolute left-1/2 top-20 -z-10 h-72 w-72 -translate-x-1/2 rounded-full bg-amber-300/20 blur-3xl dark:bg-amber-400/10" />
 
                     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                         <header className="flex items-center justify-between py-5 sm:py-6">
@@ -52,29 +53,30 @@ export default function Welcome({ canLogin, canRegister }) {
                                     <SparklesIcon className="h-6 w-6" />
                                 </div>
                                 <div>
-                                    <p className="text-base font-semibold tracking-tight text-stone-900">
+                                    <p className="text-base font-semibold tracking-tight text-stone-900 dark:text-stone-100">
                                         Salla
                                     </p>
-                                    <p className="text-xs uppercase tracking-[0.24em] text-stone-500">
+                                    <p className="text-xs uppercase tracking-[0.24em] text-stone-500 dark:text-stone-400">
                                         SaaS pour salles des fetes
                                     </p>
                                 </div>
                             </Link>
 
                             <nav className="hidden items-center gap-8 md:flex">
-                                <a href="#fonctionnalites" className="text-sm font-medium text-stone-600 transition hover:text-stone-900">
+                                <a href="#fonctionnalites" className="text-sm font-medium text-stone-600 transition hover:text-stone-900 dark:text-stone-300 dark:hover:text-stone-100">
                                     Fonctionnalites
                                 </a>
-                                <a href="#tarifs" className="text-sm font-medium text-stone-600 transition hover:text-stone-900">
+                                <a href="#tarifs" className="text-sm font-medium text-stone-600 transition hover:text-stone-900 dark:text-stone-300 dark:hover:text-stone-100">
                                     Tarifs
                                 </a>
                             </nav>
 
                             <div className="flex items-center gap-2 sm:gap-3">
+                                <ThemeToggle compact />
                                 {canLogin && (
                                     <Link
                                         href={route('login')}
-                                        className="rounded-full px-4 py-2 text-sm font-medium text-stone-700 transition hover:bg-white/80 hover:text-stone-900"
+                                        className="rounded-full px-4 py-2 text-sm font-medium text-stone-700 transition hover:bg-white/80 hover:text-stone-900 dark:text-stone-200 dark:hover:bg-stone-800 dark:hover:text-stone-100"
                                     >
                                         Se connecter
                                     </Link>
@@ -94,16 +96,16 @@ export default function Welcome({ canLogin, canRegister }) {
                             <section className="pb-16 pt-10 sm:pb-24 sm:pt-16 lg:pb-28">
                                 <div className="grid items-center gap-12 lg:grid-cols-[1.1fr_0.9fr]">
                                     <div>
-                                        <div className="inline-flex items-center gap-2 rounded-full border border-amber-200 bg-white/80 px-4 py-2 text-sm text-amber-900 shadow-sm backdrop-blur">
+                                        <div className="inline-flex items-center gap-2 rounded-full border border-amber-200 bg-white/80 px-4 py-2 text-sm text-amber-900 shadow-sm backdrop-blur dark:border-amber-900/50 dark:bg-stone-900/70 dark:text-amber-200">
                                             <span className="h-2 w-2 rounded-full bg-emerald-500" />
                                             Solution pensee pour les salles des fetes en Algerie
                                         </div>
 
-                                        <h1 className="mt-6 max-w-3xl text-4xl font-semibold tracking-tight text-stone-950 sm:text-5xl lg:text-6xl">
+                                        <h1 className="mt-6 max-w-3xl text-4xl font-semibold tracking-tight text-stone-950 dark:text-stone-100 sm:text-5xl lg:text-6xl">
                                             Gerez votre salle des fetes en toute serenite.
                                         </h1>
 
-                                        <p className="mt-6 max-w-2xl text-base leading-8 text-stone-600 sm:text-lg">
+                                        <p className="mt-6 max-w-2xl text-base leading-8 text-stone-600 dark:text-stone-300 sm:text-lg">
                                             Dites adieu aux agendas papier. Simplifiez vos reservations,
                                             vos contrats et vos paiements avec la solution No 1 en Algerie.
                                         </p>
@@ -118,7 +120,7 @@ export default function Welcome({ canLogin, canRegister }) {
                                             {canLogin && (
                                                 <Link
                                                     href={route('login')}
-                                                    className="inline-flex items-center justify-center rounded-full border border-stone-300 bg-white px-6 py-3 text-sm font-semibold text-stone-800 shadow-sm transition hover:border-stone-400 hover:bg-stone-50"
+                                                    className="inline-flex items-center justify-center rounded-full border border-stone-300 bg-white px-6 py-3 text-sm font-semibold text-stone-800 shadow-sm transition hover:border-stone-400 hover:bg-stone-50 dark:border-stone-700 dark:bg-stone-900 dark:text-stone-100 dark:hover:bg-stone-800"
                                                 >
                                                     Voir la demo
                                                 </Link>
@@ -130,7 +132,7 @@ export default function Welcome({ canLogin, canRegister }) {
                                         <div className="absolute -right-4 -top-4 h-24 w-24 rounded-3xl bg-amber-200/60 blur-2xl" />
                                         <div className="absolute -bottom-6 left-4 h-28 w-28 rounded-full bg-orange-200/60 blur-2xl" />
 
-                                        <div className="relative overflow-hidden rounded-[2rem] border border-white/70 bg-white/85 p-5 shadow-[0_24px_80px_-24px_rgba(120,53,15,0.28)] backdrop-blur">
+                                        <div className="relative overflow-hidden rounded-[2rem] border border-white/70 bg-white/85 p-5 shadow-[0_24px_80px_-24px_rgba(120,53,15,0.28)] backdrop-blur dark:border-stone-800 dark:bg-stone-900/80">
                                             <div className="rounded-[1.5rem] bg-stone-950 p-5 text-white">
                                                 <div className="flex items-center justify-between">
                                                     <div>
@@ -185,10 +187,10 @@ export default function Welcome({ canLogin, canRegister }) {
                                     <p className="text-sm font-semibold uppercase tracking-[0.28em] text-amber-700">
                                         Fonctionnalites
                                     </p>
-                                    <h2 className="mt-4 text-3xl font-semibold tracking-tight text-stone-950 sm:text-4xl">
+                                    <h2 className="mt-4 text-3xl font-semibold tracking-tight text-stone-950 dark:text-stone-100 sm:text-4xl">
                                         Tout ce qu&apos;il faut pour piloter votre activite.
                                     </h2>
-                                    <p className="mt-4 text-base leading-8 text-stone-600">
+                                    <p className="mt-4 text-base leading-8 text-stone-600 dark:text-stone-300">
                                         Une interface claire pour gerer vos dates, vos paiements et vos documents
                                         sans dependre d&apos;un tableur ou d&apos;un cahier.
                                     </p>
@@ -201,15 +203,15 @@ export default function Welcome({ canLogin, canRegister }) {
                                         return (
                                             <article
                                                 key={feature.title}
-                                                className="rounded-[1.75rem] border border-white/80 bg-white p-6 shadow-[0_20px_50px_-30px_rgba(28,25,23,0.35)] ring-1 ring-stone-100"
+                                                className="rounded-[1.75rem] border border-white/80 bg-white p-6 shadow-[0_20px_50px_-30px_rgba(28,25,23,0.35)] ring-1 ring-stone-100 dark:border-stone-800 dark:bg-stone-900 dark:ring-stone-800"
                                             >
                                                 <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-amber-400 to-orange-500 text-white shadow-lg shadow-orange-200">
                                                     <Icon className="h-6 w-6" />
                                                 </div>
-                                                <h3 className="mt-5 text-xl font-semibold text-stone-950">
+                                                <h3 className="mt-5 text-xl font-semibold text-stone-950 dark:text-stone-100">
                                                     {feature.title}
                                                 </h3>
-                                                <p className="mt-3 text-sm leading-7 text-stone-600">
+                                                <p className="mt-3 text-sm leading-7 text-stone-600 dark:text-stone-300">
                                                     {feature.description}
                                                 </p>
                                             </article>
@@ -223,10 +225,10 @@ export default function Welcome({ canLogin, canRegister }) {
                                     <p className="text-sm font-semibold uppercase tracking-[0.28em] text-amber-700">
                                         Tarifs
                                     </p>
-                                    <h2 className="mt-4 text-3xl font-semibold tracking-tight text-stone-950 sm:text-4xl">
+                                    <h2 className="mt-4 text-3xl font-semibold tracking-tight text-stone-950 dark:text-stone-100 sm:text-4xl">
                                         Des offres simples, sans complexite inutile.
                                     </h2>
-                                    <p className="mt-4 text-base leading-8 text-stone-600">
+                                    <p className="mt-4 text-base leading-8 text-stone-600 dark:text-stone-300">
                                         Choisissez le plan adapte a la taille de votre salle et demarrez rapidement.
                                     </p>
                                 </div>
@@ -235,21 +237,21 @@ export default function Welcome({ canLogin, canRegister }) {
                                     {plans.map((plan) => (
                                         <article
                                             key={plan.name}
-                                            className="overflow-hidden rounded-[2rem] border border-stone-200 bg-white shadow-[0_24px_60px_-32px_rgba(28,25,23,0.3)]"
+                                            className="overflow-hidden rounded-[2rem] border border-stone-200 bg-white shadow-[0_24px_60px_-32px_rgba(28,25,23,0.3)] dark:border-stone-800 dark:bg-stone-900"
                                         >
                                             <div className={`h-2 w-full bg-gradient-to-r ${plan.accent}`} />
                                             <div className="p-7 sm:p-8">
-                                                <h3 className="text-2xl font-semibold text-stone-950">{plan.name}</h3>
-                                                <p className="mt-2 text-sm leading-7 text-stone-600">
+                                                <h3 className="text-2xl font-semibold text-stone-950 dark:text-stone-100">{plan.name}</h3>
+                                                <p className="mt-2 text-sm leading-7 text-stone-600 dark:text-stone-300">
                                                     {plan.description}
                                                 </p>
                                                 <div className="mt-6 flex items-end gap-2">
-                                                    <span className="text-4xl font-semibold tracking-tight text-stone-950">
+                                                    <span className="text-4xl font-semibold tracking-tight text-stone-950 dark:text-stone-100">
                                                         {plan.price}
                                                     </span>
-                                                    <span className="pb-1 text-sm text-stone-500">/ mois</span>
+                                                    <span className="pb-1 text-sm text-stone-500 dark:text-stone-400">/ mois</span>
                                                 </div>
-                                                <ul className="mt-6 space-y-3 text-sm text-stone-700">
+                                                <ul className="mt-6 space-y-3 text-sm text-stone-700 dark:text-stone-200">
                                                     {plan.items.map((item) => (
                                                         <li key={item} className="flex items-center gap-3">
                                                             <CheckIcon className="h-5 w-5 text-emerald-600" />
@@ -274,8 +276,8 @@ export default function Welcome({ canLogin, canRegister }) {
                     </div>
                 </div>
 
-                <footer className="border-t border-stone-200/80 bg-white/80">
-                    <div className="mx-auto flex max-w-7xl flex-col gap-3 px-4 py-8 text-sm text-stone-500 sm:flex-row sm:items-center sm:justify-between sm:px-6 lg:px-8">
+                <footer className="border-t border-stone-200/80 bg-white/80 dark:border-stone-800 dark:bg-stone-900/80">
+                    <div className="mx-auto flex max-w-7xl flex-col gap-3 px-4 py-8 text-sm text-stone-500 dark:text-stone-400 sm:flex-row sm:items-center sm:justify-between sm:px-6 lg:px-8">
                         <p>Salla, la solution de gestion pour salles des fetes en Algerie.</p>
                         <p>(c) 2026 Tous droits reserves.</p>
                     </div>

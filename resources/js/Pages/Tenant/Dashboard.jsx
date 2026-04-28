@@ -13,6 +13,12 @@ const statusLabels = {
     cancelled: 'Annulee',
 };
 
+const paymentStatusClasses = {
+    paid: 'bg-emerald-100 text-emerald-700 ring-1 ring-emerald-200',
+    partial: 'bg-sky-100 text-sky-700 ring-1 ring-sky-200',
+    unpaid: 'bg-stone-200 text-stone-700 ring-1 ring-stone-300',
+};
+
 function formatDate(value) {
     return new Intl.DateTimeFormat('fr-DZ', {
         day: '2-digit',
@@ -55,7 +61,7 @@ export default function Dashboard({ stats, recentReservations }) {
                         </p>
                     </div>
 
-                    <div className="grid gap-4 md:grid-cols-2">
+                    <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
                         <article className="rounded-[1.75rem] bg-white p-6 shadow-sm ring-1 ring-stone-200">
                             <p className="text-sm font-medium text-stone-500">
                                 Total des reservations
@@ -71,6 +77,24 @@ export default function Dashboard({ stats, recentReservations }) {
                             </p>
                             <p className="mt-4 text-4xl font-semibold text-stone-900">
                                 {formatCurrency(stats.totalRevenue)}
+                            </p>
+                        </article>
+
+                        <article className="rounded-[1.75rem] bg-white p-6 shadow-sm ring-1 ring-stone-200">
+                            <p className="text-sm font-medium text-stone-500">
+                                Montant encaisse
+                            </p>
+                            <p className="mt-4 text-4xl font-semibold text-stone-900">
+                                {formatCurrency(stats.totalCollected)}
+                            </p>
+                        </article>
+
+                        <article className="rounded-[1.75rem] bg-white p-6 shadow-sm ring-1 ring-stone-200">
+                            <p className="text-sm font-medium text-stone-500">
+                                Reste a encaisser
+                            </p>
+                            <p className="mt-4 text-4xl font-semibold text-stone-900">
+                                {formatCurrency(stats.outstandingBalance)}
                             </p>
                         </article>
                     </div>
@@ -95,6 +119,7 @@ export default function Dashboard({ stats, recentReservations }) {
                                     <th className="px-6 py-4">Client</th>
                                     <th className="px-6 py-4">Date de l&apos;evenement</th>
                                     <th className="px-6 py-4">Statut</th>
+                                    <th className="px-6 py-4">Paiement</th>
                                     <th className="px-6 py-4">Montant</th>
                                 </tr>
                             </thead>
@@ -102,7 +127,7 @@ export default function Dashboard({ stats, recentReservations }) {
                                 {recentReservations.length === 0 ? (
                                     <tr>
                                         <td
-                                            colSpan="4"
+                                            colSpan="5"
                                             className="px-6 py-10 text-center text-sm text-stone-500"
                                         >
                                             Aucune reservation pour le moment.
@@ -125,6 +150,11 @@ export default function Dashboard({ stats, recentReservations }) {
                                                     }`}
                                                 >
                                                     {statusLabels[reservation.status] ?? reservation.status}
+                                                </span>
+                                            </td>
+                                            <td className="px-6 py-4">
+                                                <span className={`inline-flex rounded-full px-3 py-1 text-xs font-semibold ${paymentStatusClasses[reservation.payment_status] ?? 'bg-stone-100 text-stone-700 ring-1 ring-stone-200'}`}>
+                                                    {reservation.payment_status === 'paid' ? 'Paye' : reservation.payment_status === 'partial' ? 'Partiel' : 'Non paye'}
                                                 </span>
                                             </td>
                                             <td className="px-6 py-4 font-medium text-stone-900">

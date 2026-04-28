@@ -42,7 +42,7 @@ export default function Index({ tenants, stats, filters }) {
                     <p className="text-sm uppercase tracking-[0.24em] text-amber-700">
                         Administration SaaS
                     </p>
-                    <h2 className="text-2xl font-semibold leading-tight text-stone-900">
+                    <h2 className="text-2xl font-semibold leading-tight text-stone-900 dark:text-stone-100">
                         Gestion des locataires
                     </h2>
                 </div>
@@ -53,33 +53,33 @@ export default function Index({ tenants, stats, filters }) {
             <div className="py-10">
                 <div className="mx-auto max-w-7xl space-y-8 px-4 sm:px-6 lg:px-8">
                     {flash?.success && (
-                        <div className="rounded-2xl bg-emerald-100 px-4 py-3 text-sm text-emerald-800 ring-1 ring-emerald-200">
+                        <div className="rounded-2xl bg-emerald-100 px-4 py-3 text-sm text-emerald-800 ring-1 ring-emerald-200 dark:bg-emerald-950/40 dark:text-emerald-200 dark:ring-emerald-900">
                             {flash.success}
                         </div>
                     )}
 
                     <section className="grid gap-4 md:grid-cols-3">
-                        <article className="rounded-3xl bg-white p-6 shadow-sm ring-1 ring-stone-200">
-                            <p className="text-sm text-stone-500">Total des locataires</p>
-                            <p className="mt-4 text-4xl font-semibold text-stone-950">{stats.totalTenants}</p>
+                        <article className="rounded-3xl bg-white p-6 shadow-sm ring-1 ring-stone-200 dark:bg-stone-900 dark:ring-stone-800">
+                            <p className="text-sm text-stone-500 dark:text-stone-400">Total des locataires</p>
+                            <p className="mt-4 text-4xl font-semibold text-stone-950 dark:text-stone-100">{stats.totalTenants}</p>
                         </article>
-                        <article className="rounded-3xl bg-white p-6 shadow-sm ring-1 ring-stone-200">
-                            <p className="text-sm text-stone-500">Locataires actifs</p>
+                        <article className="rounded-3xl bg-white p-6 shadow-sm ring-1 ring-stone-200 dark:bg-stone-900 dark:ring-stone-800">
+                            <p className="text-sm text-stone-500 dark:text-stone-400">Locataires actifs</p>
                             <p className="mt-4 text-4xl font-semibold text-emerald-700">{stats.activeTenants}</p>
                         </article>
-                        <article className="rounded-3xl bg-white p-6 shadow-sm ring-1 ring-stone-200">
-                            <p className="text-sm text-stone-500">Locataires suspendus</p>
+                        <article className="rounded-3xl bg-white p-6 shadow-sm ring-1 ring-stone-200 dark:bg-stone-900 dark:ring-stone-800">
+                            <p className="text-sm text-stone-500 dark:text-stone-400">Locataires suspendus</p>
                             <p className="mt-4 text-4xl font-semibold text-rose-700">{stats.suspendedTenants}</p>
                         </article>
                     </section>
 
-                    <section className="rounded-3xl bg-white p-6 shadow-sm ring-1 ring-stone-200">
+                    <section className="rounded-3xl bg-white p-6 shadow-sm ring-1 ring-stone-200 dark:bg-stone-900 dark:ring-stone-800">
                         <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
                             <div>
-                                <h3 className="text-xl font-semibold text-stone-950">
+                                <h3 className="text-xl font-semibold text-stone-950 dark:text-stone-100">
                                     Liste des locataires
                                 </h3>
-                                <p className="mt-2 text-sm text-stone-500">
+                                <p className="mt-2 text-sm text-stone-500 dark:text-stone-400">
                                     Recherchez et suspendez un espace client depuis la console centrale.
                                 </p>
                             </div>
@@ -97,9 +97,9 @@ export default function Index({ tenants, stats, filters }) {
                         </div>
 
                         <div className="mt-6 overflow-x-auto">
-                            <table className="min-w-full divide-y divide-stone-200">
-                                <thead className="bg-stone-50">
-                                    <tr className="text-left text-xs uppercase tracking-[0.18em] text-stone-500">
+                            <table className="min-w-full divide-y divide-stone-200 dark:divide-stone-800">
+                                <thead className="bg-stone-50 dark:bg-stone-950/60">
+                                    <tr className="text-left text-xs uppercase tracking-[0.18em] text-stone-500 dark:text-stone-400">
                                         <th className="px-4 py-3">Salle</th>
                                         <th className="px-4 py-3">Domaine</th>
                                         <th className="px-4 py-3">Plan</th>
@@ -108,18 +108,18 @@ export default function Index({ tenants, stats, filters }) {
                                         <th className="px-4 py-3">Actions</th>
                                     </tr>
                                 </thead>
-                                <tbody className="divide-y divide-stone-100 bg-white">
+                                <tbody className="divide-y divide-stone-100 bg-white dark:divide-stone-800 dark:bg-stone-900">
                                     {tenants.map((tenant) => (
-                                        <tr key={tenant.id} className="text-sm text-stone-700">
+                                        <tr key={tenant.id} className="text-sm text-stone-700 dark:text-stone-300">
                                             <td className="px-4 py-4">
-                                                <div className="font-medium text-stone-900">{tenant.name}</div>
-                                                <div className="text-xs text-stone-500">{tenant.owner?.email ?? 'Sans responsable'}</div>
+                                                <div className="font-medium text-stone-900 dark:text-stone-100">{tenant.name}</div>
+                                                <div className="text-xs text-stone-500 dark:text-stone-400">{tenant.owner?.email ?? 'Sans responsable'}</div>
                                             </td>
                                             <td className="px-4 py-4">{tenant.domain}</td>
                                             <td className="px-4 py-4 capitalize">{tenant.plan}</td>
                                             <td className="px-4 py-4">
                                                 <span
-                                                    className={`inline-flex rounded-full px-3 py-1 text-xs font-semibold ring-1 ${statusStyles[tenant.status] ?? 'bg-stone-100 text-stone-700 ring-stone-200'}`}
+                                                    className={`inline-flex rounded-full px-3 py-1 text-xs font-semibold ring-1 ${statusStyles[tenant.status] ?? 'bg-stone-100 text-stone-700 ring-stone-200 dark:bg-stone-800 dark:text-stone-200 dark:ring-stone-700'}`}
                                                 >
                                                     {statusLabels[tenant.status] ?? tenant.status}
                                                 </span>
@@ -131,7 +131,7 @@ export default function Index({ tenants, stats, filters }) {
                                                     onClick={() =>
                                                         router.patch(route('central.admin.tenants.toggle-status', tenant.id))
                                                     }
-                                                    className="rounded-full border border-stone-300 px-3 py-1.5 text-xs font-medium text-stone-700 transition hover:bg-stone-100"
+                                                    className="rounded-full border border-stone-300 px-3 py-1.5 text-xs font-medium text-stone-700 transition hover:bg-stone-100 dark:border-stone-700 dark:text-stone-200 dark:hover:bg-stone-800"
                                                 >
                                                     {tenant.status === 'active' ? 'Suspendre' : 'Activer'}
                                                 </button>

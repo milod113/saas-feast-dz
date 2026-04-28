@@ -31,6 +31,13 @@ class ClientController extends Controller
         ]);
     }
 
+    public function create(): Response
+    {
+        return Inertia::render('Tenant/Clients/Create', [
+            'tenant' => $this->tenantPayload(),
+        ]);
+    }
+
     public function store(Request $request): RedirectResponse
     {
         $data = $this->validateClient($request);

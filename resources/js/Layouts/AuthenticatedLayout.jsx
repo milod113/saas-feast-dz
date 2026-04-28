@@ -1,4 +1,5 @@
 import Dropdown from '@/Components/Dropdown';
+import ThemeToggle from '@/Components/ThemeToggle';
 import { Link, usePage } from '@inertiajs/react';
 import { useState } from 'react';
 
@@ -31,14 +32,14 @@ export default function AuthenticatedLayout({ header, children }) {
     const [mobileOpen, setMobileOpen] = useState(false);
 
     return (
-        <div className="min-h-screen bg-[#f6f3ee] text-stone-900">
+        <div className="min-h-screen bg-[#f6f3ee] text-stone-900 dark:bg-stone-950 dark:text-stone-100">
             <div className="mx-auto flex min-h-screen max-w-[1600px]">
-                <aside className="hidden w-80 flex-col border-r border-stone-200 bg-stone-950 text-white lg:flex">
+                <aside className="hidden w-80 flex-col border-r border-stone-200 bg-stone-950 text-white dark:border-stone-800 lg:flex">
                     <SidebarContent user={user} url={url} sidebar={sidebar} />
                 </aside>
 
                 <div className="flex min-h-screen flex-1 flex-col">
-                    <div className="border-b border-stone-200 bg-white/90 backdrop-blur lg:hidden">
+                    <div className="border-b border-stone-200 bg-white/90 backdrop-blur dark:border-stone-800 dark:bg-stone-900/90 lg:hidden">
                         <div className="flex items-center justify-between px-4 py-4 sm:px-6">
                             <Link href={route('central.home')} className="flex items-center gap-3">
                                 <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-amber-400 to-orange-500 text-white shadow-lg shadow-orange-200">
@@ -48,30 +49,33 @@ export default function AuthenticatedLayout({ header, children }) {
                                     <p className="text-sm font-semibold uppercase tracking-[0.22em] text-amber-700">
                                         Salla
                                     </p>
-                                    <p className="text-sm text-stone-500">Admin SaaS</p>
+                                    <p className="text-sm text-stone-500 dark:text-stone-400">Admin SaaS</p>
                                 </div>
                             </Link>
 
-                            <button
-                                type="button"
-                                onClick={() => setMobileOpen((value) => !value)}
-                                className="rounded-2xl border border-stone-300 px-3 py-2 text-sm font-medium text-stone-700"
-                            >
-                                Menu
-                            </button>
+                            <div className="flex items-center gap-2">
+                                <ThemeToggle compact />
+                                <button
+                                    type="button"
+                                    onClick={() => setMobileOpen((value) => !value)}
+                                    className="rounded-2xl border border-stone-300 px-3 py-2 text-sm font-medium text-stone-700 dark:border-stone-700 dark:text-stone-200"
+                                >
+                                    Menu
+                                </button>
+                            </div>
                         </div>
 
                         {mobileOpen && (
-                            <div className="border-t border-stone-200 bg-white px-4 py-4 sm:px-6">
+                            <div className="border-t border-stone-200 bg-white px-4 py-4 dark:border-stone-800 dark:bg-stone-900 sm:px-6">
                                 <SidebarNavigation url={url} sidebar={sidebar} mobile />
-                                <div className="mt-4 border-t border-stone-200 pt-4">
-                                    <p className="text-sm font-medium text-stone-900">{user.name}</p>
-                                    <p className="mt-1 text-sm text-stone-500">{user.email}</p>
+                                <div className="mt-4 border-t border-stone-200 pt-4 dark:border-stone-800">
+                                    <p className="text-sm font-medium text-stone-900 dark:text-stone-100">{user.name}</p>
+                                    <p className="mt-1 text-sm text-stone-500 dark:text-stone-400">{user.email}</p>
                                     <Link
                                         href={route('logout')}
                                         method="post"
                                         as="button"
-                                        className="mt-4 inline-flex w-full items-center justify-center rounded-2xl border border-stone-300 px-4 py-3 text-sm font-medium text-stone-700 transition hover:bg-stone-100"
+                                        className="mt-4 inline-flex w-full items-center justify-center rounded-2xl border border-stone-300 px-4 py-3 text-sm font-medium text-stone-700 transition hover:bg-stone-100 dark:border-stone-700 dark:text-stone-200 dark:hover:bg-stone-800"
                                     >
                                         Se deconnecter
                                     </Link>
@@ -82,7 +86,7 @@ export default function AuthenticatedLayout({ header, children }) {
 
                     <main className="flex-1 px-4 py-6 sm:px-6 lg:px-10 lg:py-10">
                         {header && (
-                            <div className="mb-8 flex flex-col gap-4 rounded-[2rem] bg-white px-6 py-6 shadow-[0_18px_50px_-28px_rgba(28,25,23,0.35)] ring-1 ring-stone-200 sm:px-8">
+                            <div className="mb-8 flex flex-col gap-4 rounded-[2rem] bg-white px-6 py-6 shadow-[0_18px_50px_-28px_rgba(28,25,23,0.35)] ring-1 ring-stone-200 dark:bg-stone-900 dark:ring-stone-800 sm:px-8">
                                 {header}
                             </div>
                         )}
@@ -99,6 +103,7 @@ function SidebarContent({ user, url, sidebar }) {
     return (
         <>
             <div className="border-b border-white/10 px-6 py-6">
+                <div className="flex items-start justify-between gap-3">
                 <Link href={route('central.home')} className="flex items-center gap-4">
                     <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-amber-400 to-orange-500 text-white shadow-lg shadow-orange-500/20">
                         <SparkIcon className="h-6 w-6" />
@@ -110,6 +115,8 @@ function SidebarContent({ user, url, sidebar }) {
                         <p className="mt-1 text-xl font-semibold text-white">Console admin</p>
                     </div>
                 </Link>
+                <ThemeToggle compact className="border-white/10 bg-white/5 text-stone-200 hover:bg-white/10 dark:border-white/10 dark:bg-white/5 dark:text-stone-200 dark:hover:bg-white/10" />
+                </div>
             </div>
 
             <div className="flex-1 px-4 py-6">
@@ -140,7 +147,7 @@ function SidebarContent({ user, url, sidebar }) {
                                 </button>
                             </Dropdown.Trigger>
 
-                            <Dropdown.Content contentClasses="py-2 bg-white">
+                            <Dropdown.Content contentClasses="py-2 bg-white dark:bg-stone-900">
                                 <Dropdown.Link href={route('profile.edit')}>
                                     Mon profil
                                 </Dropdown.Link>

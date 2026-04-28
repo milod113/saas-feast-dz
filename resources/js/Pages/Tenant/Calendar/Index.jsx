@@ -7,6 +7,12 @@ const statusClasses = {
     cancelled: 'bg-rose-100 text-rose-700 ring-rose-200',
 };
 
+const paymentStatusClasses = {
+    paid: 'bg-emerald-100 text-emerald-700 ring-emerald-200',
+    partial: 'bg-sky-100 text-sky-700 ring-sky-200',
+    unpaid: 'bg-stone-200 text-stone-700 ring-stone-300',
+};
+
 const daysLabels = ['Sam', 'Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven'];
 
 function formatCurrency(value) {
@@ -102,8 +108,11 @@ export default function Index({ month, days }) {
                                                     {formatCurrency(reservation.total_price)}
                                                 </span>
                                             </div>
-                                            <div className="mt-1 text-[11px] text-stone-500">
-                                                Avance: {formatCurrency(reservation.advance_amount)}
+                                            <div className={`mt-1 inline-flex rounded-full px-2 py-0.5 text-[11px] font-semibold ring-1 ${paymentStatusClasses[reservation.payment_status] ?? 'bg-stone-100 text-stone-700 ring-stone-200'}`}>
+                                                {reservation.payment_status === 'paid' ? 'Paye' : reservation.payment_status === 'partial' ? 'Partiel' : 'Non paye'}
+                                            </div>
+                                            <div className="text-[11px] text-stone-500">
+                                                Encaisse: {formatCurrency(reservation.paid_amount)}
                                             </div>
                                             <div className="text-[11px] text-stone-500">
                                                 Reste: {formatCurrency(reservation.remaining_balance)}

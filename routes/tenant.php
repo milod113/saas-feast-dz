@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Tenant\CalendarController;
 use App\Http\Controllers\Tenant\ClientController;
 use App\Http\Controllers\Tenant\DashboardController;
+use App\Http\Controllers\Tenant\PaymentController;
 use App\Http\Controllers\Tenant\ReservationController;
 use Illuminate\Support\Facades\Route;
 use Stancl\Tenancy\Middleware\InitializeTenancyByDomain;
@@ -41,8 +42,15 @@ Route::middleware([
         Route::get('/reservations/{reservation}/edit', [ReservationController::class, 'edit'])->name('tenant.reservations.edit');
         Route::put('/reservations/{reservation}', [ReservationController::class, 'update'])->name('tenant.reservations.update');
         Route::delete('/reservations/{reservation}', [ReservationController::class, 'destroy'])->name('tenant.reservations.destroy');
+        Route::get('/payments', [PaymentController::class, 'index'])->name('tenant.payments.index');
+        Route::get('/payments/create', [PaymentController::class, 'create'])->name('tenant.payments.create');
+        Route::post('/payments', [PaymentController::class, 'store'])->name('tenant.payments.store');
+        Route::get('/payments/{payment}/edit', [PaymentController::class, 'edit'])->name('tenant.payments.edit');
+        Route::put('/payments/{payment}', [PaymentController::class, 'update'])->name('tenant.payments.update');
+        Route::delete('/payments/{payment}', [PaymentController::class, 'destroy'])->name('tenant.payments.destroy');
 
         Route::get('/clients', [ClientController::class, 'index'])->name('tenant.clients.index');
+        Route::get('/clients/create', [ClientController::class, 'create'])->name('tenant.clients.create');
         Route::post('/clients', [ClientController::class, 'store'])->name('tenant.clients.store');
         Route::put('/clients/{client}', [ClientController::class, 'update'])->name('tenant.clients.update');
         Route::delete('/clients/{client}', [ClientController::class, 'destroy'])->name('tenant.clients.destroy');

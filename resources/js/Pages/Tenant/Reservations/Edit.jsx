@@ -7,7 +7,6 @@ export default function Edit({ reservation, clients, statuses }) {
         event_date: reservation.event_date ?? '',
         status: reservation.status ?? 'pending',
         total_price: reservation.total_price ?? '',
-        advance_amount: reservation.advance_amount ?? '0',
     });
 
     return (
@@ -18,6 +17,8 @@ export default function Edit({ reservation, clients, statuses }) {
             submit={() => form.put(route('tenant.reservations.update', reservation.id))}
             clients={clients}
             statuses={statuses}
+            mode="edit"
+            reservation={reservation}
         />
     );
 }
