@@ -44,7 +44,7 @@ class AuthenticatedSessionController extends Controller
             return Inertia::location($request->getScheme() . '://' . $tenantDomain . $portSegment . '/dashboard');
         }
 
-        return redirect()->intended(route('central.admin.dashboard', absolute: false));
+        return redirect()->route('central.admin.dashboard');
     }
 
     /**
@@ -59,7 +59,8 @@ class AuthenticatedSessionController extends Controller
         $request->session()->regenerateToken();
 
         if (function_exists('tenant') && tenant()) {
-            $centralDomain = config('tenancy.central_domains')[0] ?? config('app.url');
+            $centralDomain = parse_url((string) config('app.url'), PHP_URL_HOST)
+                ?: (config('tenancy.central_domains')[0] ?? 'localhost');
             $port = $request->getPort();
             $portSegment = in_array($port, [80, 443], true) ? '' : ':' . $port;
 

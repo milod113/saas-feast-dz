@@ -8,7 +8,7 @@
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+        <link href="https://fonts.bunny.net/css?family=urbanist:400,500,600,700,800&display=swap" rel="stylesheet" />
 
         <!-- Scripts -->
         <script>
@@ -26,7 +26,7 @@
         @vite(['resources/js/app.jsx', "resources/js/Pages/{$page['component']}.jsx"])
         @inertiaHead
     </head>
-    <body class="font-sans antialiased bg-stone-50 text-stone-900 dark:bg-stone-950 dark:text-stone-100">
+    <body class="font-urbanist antialiased bg-stone-50 text-stone-900 dark:bg-stone-950 dark:text-stone-100">
         @inertia
     </body>
 </html>

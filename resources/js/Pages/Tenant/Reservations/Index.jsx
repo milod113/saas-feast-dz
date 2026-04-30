@@ -242,6 +242,11 @@ export default function Index({ reservations, filters, tenant }) {
                                                     <div className="font-medium text-stone-900 dark:text-white">
                                                         {formatCurrency(reservation.total_price)} DZD
                                                     </div>
+                                                    {Number(reservation.services_total || 0) > 0 && (
+                                                        <div className="mt-1 text-xs text-stone-500 dark:text-stone-400">
+                                                            Salle {formatCurrency(reservation.location_price || 0)} + services {formatCurrency(reservation.services_total || 0)}
+                                                        </div>
+                                                    )}
                                                 </td>
                                                 <td className="px-6 py-4 text-right text-stone-700 dark:text-stone-300">
                                                     {formatCurrency(reservation.paid_amount)} DZD

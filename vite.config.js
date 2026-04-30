@@ -4,7 +4,10 @@ import react from '@vitejs/plugin-react';
 
 export default defineConfig(({ mode }) => {
     const env = loadEnv(mode, process.cwd(), '');
-    const devServerUrl = env.VITE_DEV_SERVER_URL || 'http://lvh.me:5173';
+    const appUrl = env.APP_URL || 'http://localhost';
+    const appHost = new URL(appUrl).hostname;
+    const devServerUrl = env.VITE_DEV_SERVER_URL || 'http://localhost:5173';
+    const hmrHost = env.VITE_HMR_HOST || appHost || 'localhost';
 
     return {
         plugins: [
@@ -27,7 +30,7 @@ export default defineConfig(({ mode }) => {
                 ],
             },
             hmr: {
-                host: 'lvh.me',
+                host: hmrHost,
             },
         },
     };

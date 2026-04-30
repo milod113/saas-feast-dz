@@ -8,7 +8,7 @@ import TenantLayout from '@/Layouts/TenantLayout';
 import { Head, Link, useForm, usePage } from '@inertiajs/react';
 import { useState } from 'react';
 
-export default function Index({ clients }) {
+export default function Index({ clients = [] }) {
     const { flash, tenant } = usePage().props;
     const [showCreateForm, setShowCreateForm] = useState(false);
     

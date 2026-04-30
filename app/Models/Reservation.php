@@ -23,6 +23,8 @@ class Reservation extends Model
         'client_name',
         'event_date',
         'status',
+        'location_price',
+        'services_total',
         'total_price',
         'advance_amount',
     ];
@@ -31,6 +33,8 @@ class Reservation extends Model
     {
         return [
             'event_date' => 'date',
+            'location_price' => 'decimal:2',
+            'services_total' => 'decimal:2',
             'total_price' => 'decimal:2',
             'advance_amount' => 'decimal:2',
         ];
@@ -44,6 +48,11 @@ class Reservation extends Model
     public function payments(): HasMany
     {
         return $this->hasMany(Payment::class)->orderByDesc('payment_date')->orderByDesc('id');
+    }
+
+    public function reservationServices(): HasMany
+    {
+        return $this->hasMany(ReservationService::class);
     }
 
     public function getPaidAmountAttribute(): float

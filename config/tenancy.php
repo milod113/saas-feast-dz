@@ -16,9 +16,9 @@ return [
      *
      * Only relevant if you're using the domain or subdomain identification middleware.
      */
-    'central_domains' => explode(',', env('CENTRAL_DOMAINS', 'lvh.me,127.0.0.1')),
+    'central_domains' => explode(',', env('CENTRAL_DOMAINS', 'localhost,127.0.0.1')),
 
-    'tenant_base_domain' => env('TENANCY_BASE_DOMAIN', 'lvh.me'),
+    'tenant_base_domain' => env('TENANCY_BASE_DOMAIN', 'localhost'),
 
     /**
      * Tenancy bootstrappers are executed when tenancy is initialized.
@@ -137,7 +137,7 @@ return [
          * disable asset() helper tenancy and explicitly use tenant_asset() calls in places
          * where you want to use tenant-specific assets (product images, avatars, etc).
          */
-        'asset_helper_tenancy' => true,
+        'asset_helper_tenancy' => false,
     ],
 
     /**

@@ -27,7 +27,14 @@ export default function Register({ baseDomain }) {
         <GuestLayout>
             <Head title="Inscription" />
 
-            <form onSubmit={submit}>
+            <div className="mb-6">
+                <h2 className="text-2xl font-extrabold text-stone-950 dark:text-white">Creer un espace</h2>
+                <p className="mt-2 text-sm leading-6 text-stone-500 dark:text-stone-400">
+                    Configurez votre salle et votre compte gerant.
+                </p>
+            </div>
+
+            <form onSubmit={submit} className="space-y-5">
                 <div>
                     <InputLabel htmlFor="hall_name" value="Nom de la salle" />
 
@@ -45,10 +52,10 @@ export default function Register({ baseDomain }) {
                     <InputError message={errors.hall_name} className="mt-2" />
                 </div>
 
-                <div className="mt-4">
+                <div>
                     <InputLabel htmlFor="subdomain" value="Sous-domaine" />
 
-                    <div className="mt-1 flex items-center overflow-hidden rounded-md border border-gray-300 focus-within:border-indigo-500 focus-within:ring-1 focus-within:ring-indigo-500">
+                    <div className="mt-1 flex items-center overflow-hidden rounded-2xl border border-stone-200 bg-white/90 shadow-sm focus-within:border-amber-500 focus-within:ring-1 focus-within:ring-amber-500 dark:border-stone-700 dark:bg-stone-950/80">
                         <TextInput
                             id="subdomain"
                             name="subdomain"
@@ -58,7 +65,7 @@ export default function Register({ baseDomain }) {
                             onChange={(e) => setData('subdomain', e.target.value.toLowerCase())}
                             required
                         />
-                        <span className="border-s border-gray-200 bg-gray-50 px-3 py-2 text-sm text-gray-500">
+                        <span className="border-s border-stone-200 bg-stone-50 px-3 py-2 text-sm text-stone-500 dark:border-stone-800 dark:bg-stone-900 dark:text-stone-400">
                             .{baseDomain}
                         </span>
                     </div>
@@ -66,7 +73,7 @@ export default function Register({ baseDomain }) {
                     <InputError message={errors.subdomain} className="mt-2" />
                 </div>
 
-                <div className="mt-4">
+                <div>
                     <InputLabel htmlFor="name" value="Nom du responsable" />
 
                     <TextInput
@@ -82,7 +89,7 @@ export default function Register({ baseDomain }) {
                     <InputError message={errors.name} className="mt-2" />
                 </div>
 
-                <div className="mt-4">
+                <div>
                     <InputLabel htmlFor="email" value="Adresse e-mail" />
 
                     <TextInput
@@ -99,7 +106,7 @@ export default function Register({ baseDomain }) {
                     <InputError message={errors.email} className="mt-2" />
                 </div>
 
-                <div className="mt-4">
+                <div>
                     <InputLabel htmlFor="password" value="Mot de passe" />
 
                     <TextInput
@@ -116,7 +123,7 @@ export default function Register({ baseDomain }) {
                     <InputError message={errors.password} className="mt-2" />
                 </div>
 
-                <div className="mt-4">
+                <div>
                     <InputLabel
                         htmlFor="password_confirmation"
                         value="Confirmer le mot de passe"
@@ -141,15 +148,15 @@ export default function Register({ baseDomain }) {
                     />
                 </div>
 
-                <div className="mt-4 flex items-center justify-end">
+                <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                     <Link
                         href={route('login')}
-                        className="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                        className="text-sm font-semibold text-amber-700 underline-offset-4 transition hover:underline dark:text-amber-300"
                     >
                         Deja inscrit ?
                     </Link>
 
-                    <PrimaryButton className="ms-4" disabled={processing}>
+                    <PrimaryButton className="w-full sm:w-auto" disabled={processing}>
                         Creer mon espace
                     </PrimaryButton>
                 </div>

@@ -38,20 +38,19 @@ export default function Index({ tenants, stats, filters }) {
     return (
         <AuthenticatedLayout
             header={
-                <div className="flex flex-col gap-2">
-                    <p className="text-sm uppercase tracking-[0.24em] text-amber-700">
-                        Administration SaaS
-                    </p>
-                    <h2 className="text-2xl font-semibold leading-tight text-stone-900 dark:text-stone-100">
+                <div>
+                    <h2 className="text-2xl font-bold leading-tight text-stone-950 dark:text-white">
                         Gestion des locataires
                     </h2>
+                    <p className="mt-1 text-sm text-stone-500 dark:text-stone-400">
+                        Rechercher, suivre et gerer les espaces clients.
+                    </p>
                 </div>
             }
         >
             <Head title="Administration SaaS" />
 
-            <div className="py-10">
-                <div className="mx-auto max-w-7xl space-y-8 px-4 sm:px-6 lg:px-8">
+            <div className="space-y-6">
                     {flash?.success && (
                         <div className="rounded-2xl bg-emerald-100 px-4 py-3 text-sm text-emerald-800 ring-1 ring-emerald-200 dark:bg-emerald-950/40 dark:text-emerald-200 dark:ring-emerald-900">
                             {flash.success}
@@ -59,21 +58,21 @@ export default function Index({ tenants, stats, filters }) {
                     )}
 
                     <section className="grid gap-4 md:grid-cols-3">
-                        <article className="rounded-3xl bg-white p-6 shadow-sm ring-1 ring-stone-200 dark:bg-stone-900 dark:ring-stone-800">
+                        <article className="salla-card p-6">
                             <p className="text-sm text-stone-500 dark:text-stone-400">Total des locataires</p>
-                            <p className="mt-4 text-4xl font-semibold text-stone-950 dark:text-stone-100">{stats.totalTenants}</p>
+                            <p className="mt-4 text-4xl font-extrabold text-stone-950 dark:text-stone-100">{stats.totalTenants}</p>
                         </article>
-                        <article className="rounded-3xl bg-white p-6 shadow-sm ring-1 ring-stone-200 dark:bg-stone-900 dark:ring-stone-800">
+                        <article className="salla-card p-6">
                             <p className="text-sm text-stone-500 dark:text-stone-400">Locataires actifs</p>
-                            <p className="mt-4 text-4xl font-semibold text-emerald-700">{stats.activeTenants}</p>
+                            <p className="mt-4 text-4xl font-extrabold text-emerald-700 dark:text-emerald-300">{stats.activeTenants}</p>
                         </article>
-                        <article className="rounded-3xl bg-white p-6 shadow-sm ring-1 ring-stone-200 dark:bg-stone-900 dark:ring-stone-800">
+                        <article className="salla-card p-6">
                             <p className="text-sm text-stone-500 dark:text-stone-400">Locataires suspendus</p>
-                            <p className="mt-4 text-4xl font-semibold text-rose-700">{stats.suspendedTenants}</p>
+                            <p className="mt-4 text-4xl font-extrabold text-rose-700 dark:text-rose-300">{stats.suspendedTenants}</p>
                         </article>
                     </section>
 
-                    <section className="rounded-3xl bg-white p-6 shadow-sm ring-1 ring-stone-200 dark:bg-stone-900 dark:ring-stone-800">
+                    <section className="salla-panel overflow-hidden p-6">
                         <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
                             <div>
                                 <h3 className="text-xl font-semibold text-stone-950 dark:text-stone-100">
@@ -96,7 +95,7 @@ export default function Index({ tenants, stats, filters }) {
                             </div>
                         </div>
 
-                        <div className="mt-6 overflow-x-auto">
+                        <div className="mt-6 overflow-x-auto rounded-2xl border border-stone-200 dark:border-stone-800">
                             <table className="min-w-full divide-y divide-stone-200 dark:divide-stone-800">
                                 <thead className="bg-stone-50 dark:bg-stone-950/60">
                                     <tr className="text-left text-xs uppercase tracking-[0.18em] text-stone-500 dark:text-stone-400">
@@ -108,9 +107,9 @@ export default function Index({ tenants, stats, filters }) {
                                         <th className="px-4 py-3">Actions</th>
                                     </tr>
                                 </thead>
-                                <tbody className="divide-y divide-stone-100 bg-white dark:divide-stone-800 dark:bg-stone-900">
+                                <tbody className="divide-y divide-stone-100 bg-white/60 dark:divide-stone-800 dark:bg-stone-900/30">
                                     {tenants.map((tenant) => (
-                                        <tr key={tenant.id} className="text-sm text-stone-700 dark:text-stone-300">
+                                        <tr key={tenant.id} className="text-sm text-stone-700 transition hover:bg-amber-50/70 dark:text-stone-300 dark:hover:bg-amber-500/5">
                                             <td className="px-4 py-4">
                                                 <div className="font-medium text-stone-900 dark:text-stone-100">{tenant.name}</div>
                                                 <div className="text-xs text-stone-500 dark:text-stone-400">{tenant.owner?.email ?? 'Sans responsable'}</div>
@@ -142,7 +141,6 @@ export default function Index({ tenants, stats, filters }) {
                             </table>
                         </div>
                     </section>
-                </div>
             </div>
         </AuthenticatedLayout>
     );

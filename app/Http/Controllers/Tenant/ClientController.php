@@ -33,7 +33,20 @@ class ClientController extends Controller
 
     public function create(): Response
     {
+        $clients = Client::query()
+            ->withCount('reservations')
+            ->latest()
+            ->get([
+                'id',
+                'name',
+                'email',
+                'phone',
+                'notes',
+                'created_at',
+            ]);
+
         return Inertia::render('Tenant/Clients/Create', [
+            'clients' => $clients,
             'tenant' => $this->tenantPayload(),
         ]);
     }
